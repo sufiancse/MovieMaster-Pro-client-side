@@ -47,6 +47,16 @@ const Navbar = () => {
           My Collection
         </NavLink>
       </li>
+      <li>
+        <NavLink
+          to={"/add-movies"}
+          className={({ isActive }) =>
+            isActive ? "text-red-700 font-bold" : ""
+          }
+        >
+          Add Movies
+        </NavLink>
+      </li>
     </>
   );
 

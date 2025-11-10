@@ -6,6 +6,8 @@ import AllMovies from "../pages/AllMovies";
 import MyCollections from "../pages/MyCollections";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
+import MovieDetailsCard from "../components/MovieDetailsCard/MovieDetailsCard";
+import AddMovies from "../pages/AddMovies";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +34,14 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register />,
+      },
+      {
+        path: "/movie-details",
+        Component: MovieDetailsCard,
+      },
+      {
+        path: "/add-movies",
+        Component: AddMovies,
       },
     ],
   },
