@@ -21,11 +21,8 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center  overflow-hidden py-10 ">
-      {/* Background Gradient Lights */}
-      <div className="absolute top-0 left-0 w-96 h-96 bg-indigo-600 opacity-30 blur-3xl rounded-full -translate-x-1/2 -translate-y-1/2"></div>
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-pink-600 opacity-30 blur-3xl rounded-full translate-x-1/2 translate-y-1/2"></div>
-
+    <div className="min-h-screen flex items-center justify-center  overflow-hidden py-10 mt-15">
+     
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
@@ -106,7 +103,7 @@ const Register = () => {
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full bg-pink-600 hover:bg-pink-700 transition-all font-semibold text-white py-2 rounded-lg flex items-center justify-center"
+            className="w-full btn-primary transition-all font-semibold text-white py-2 rounded-lg flex items-center justify-center"
           >
             <UserPlus className="w-4 h-4 mr-2" /> Register
           </button>

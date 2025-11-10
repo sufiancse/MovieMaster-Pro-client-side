@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
+import { IoLogInSharp } from "react-icons/io5";
 import { NavLink } from "react-router";
 
 const Navbar = () => {
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
-
 
   useEffect(() => {
     const html = document.querySelector("html");
     html.setAttribute("data-theme", theme);
     localStorage.setItem("theme", theme);
   }, [theme]);
-
 
   const handleTheme = (checked) => {
     setTheme(checked ? "dark" : "light");
@@ -22,7 +21,7 @@ const Navbar = () => {
         <NavLink
           to={"/"}
           className={({ isActive }) =>
-            isActive ? "text-blue-500 font-bold" : ""
+            isActive ? "text-red-700 font-bold" : ""
           }
         >
           Home
@@ -32,7 +31,7 @@ const Navbar = () => {
         <NavLink
           to={"/all-movies"}
           className={({ isActive }) =>
-            isActive ? "text-blue-500 font-bold" : ""
+            isActive ? "text-red-700 font-bold" : ""
           }
         >
           All Movies
@@ -42,7 +41,7 @@ const Navbar = () => {
         <NavLink
           to={"/my-collections"}
           className={({ isActive }) =>
-            isActive ? "text-blue-500 font-bold" : ""
+            isActive ? "text-red-700 font-bold" : ""
           }
         >
           My Collection
@@ -50,8 +49,9 @@ const Navbar = () => {
       </li>
     </>
   );
+
   return (
-    <div className="bg-black/70 backdrop-blur-md text-white fixed w-full z-50">
+    <div className="bg-black/70 backdrop-blur-md text-gray-400 fixed w-full z-50">
       <div className="navbar   container mx-auto">
         <div className="navbar-start">
           <div className="dropdown">
@@ -79,7 +79,9 @@ const Navbar = () => {
               {links}
             </ul>
           </div>
-          <a className="text-2xl font-bold text-red-500 tracking-wide">MovieMaster Pro</a>
+          <a className="text-2xl font-bold text-red-500 tracking-wide">
+            MovieMaster Pro
+          </a>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{links}</ul>
@@ -91,12 +93,38 @@ const Navbar = () => {
             defaultChecked={localStorage.getItem("theme") === "dark"}
             className="toggle"
           />
-          <NavLink to={"/login"} className="btn">
-            Login
-          </NavLink>
-          <NavLink to={"/register"} className="btn">
-            Register
-          </NavLink>
+
+       
+
+            <div className="block md:hidden">
+            <NavLink
+              to={"/login"}
+              
+            >
+              <IoLogInSharp size={24}/>
+            </NavLink>
+          </div>
+
+          <div className="hidden md:block space-x-2">
+               <NavLink
+              to={"/login"}
+              className={({ isActive }) =>
+                isActive ? " btn btn-primary " : "btn "
+              }
+            >
+              Login
+            </NavLink>
+            <NavLink
+              to={"/register"}
+              className={({ isActive }) =>
+                isActive ? " btn btn-primary" : "btn"
+              }
+            >
+              Register
+            </NavLink>
+          </div>
+
+        
         </div>
       </div>
     </div>

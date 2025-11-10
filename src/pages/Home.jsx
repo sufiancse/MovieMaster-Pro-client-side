@@ -1,8 +1,10 @@
 import React from 'react';
+import HeroCarousel from '../components/HeroCarousel';
 
 const Home = () => {
     return (
-        <div>
+        <div className='container mx-auto'>
+            <HeroCarousel />
             home
         </div>
     );

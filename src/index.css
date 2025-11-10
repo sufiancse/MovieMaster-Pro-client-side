@@ -5,3 +5,11 @@
 
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+
+.btn-primary{
+    @apply bg-red-600 
+}
+.btn-primary:hover{
+    @apply hover:opacity-90
+}
