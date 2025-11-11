@@ -1,55 +1,55 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSwipeable } from "react-swipeable";
-
-const featuredMovies = [
-  {
-    title: "Inception",
-    posterUrl: "https://m.media-amazon.com/images/I/51v5ZpFyaFL._AC_.jpg",
-    rating: 8.8,
-    genre: "Sci-Fi"
-  },
-  {
-    title: "Interstellar",
-    posterUrl: "https://m.media-amazon.com/images/I/71n58vXb3RL._AC_SY679_.jpg",
-    rating: 8.6,
-    genre: "Sci-Fi"
-  },
-  {
-    title: "The Dark Knight",
-    posterUrl: "https://m.media-amazon.com/images/I/71poxLRz3zL._AC_SY679_.jpg",
-    rating: 9.0,
-    genre: "Action"
-  },
-  {
-    title: "Avengers: Endgame",
-    posterUrl: "https://m.media-amazon.com/images/I/81ExhpBEbHL._AC_SY679_.jpg",
-    rating: 8.4,
-    genre: "Action"
-  }
-];
+import useAxios from "../../hooks/useAxios";
 
 const HeroCarousel = () => {
+  const axios = useAxios();
   const [current, setCurrent] = useState(0);
+  const [featuredMovies, setFeaturedMovies] = useState([]);
 
-  // Auto-slide every 5 seconds
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % featuredMovies.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, []);
+    axios
+      .get("/latest-movies")
+      .then((res) => setFeaturedMovies(res.data))
+      .catch((err) => console.error("Error fetching movies:", err));
+  }, [axios]);
 
-  // Swipe Handlers
+  useEffect(() => {
+    if (featuredMovies.length > 0) {
+      const timer = setInterval(() => {
+        setCurrent((prev) => (prev + 1) % featuredMovies.length);
+      }, 5000);
+      return () => clearInterval(timer);
+    }
+  }, [featuredMovies]);
+
   const handlers = useSwipeable({
-    onSwipedLeft: () => setCurrent((prev) => (prev + 1) % featuredMovies.length),
-    onSwipedRight: () => setCurrent((prev) => (prev - 1 + featuredMovies.length) % featuredMovies.length),
+    onSwipedLeft: () =>
+      setCurrent((prev) => (prev + 1) % featuredMovies.length),
+    onSwipedRight: () =>
+      setCurrent(
+        (prev) => (prev - 1 + featuredMovies.length) % featuredMovies.length
+      ),
     preventDefaultTouchmoveEvent: true,
-    trackMouse: true
+    trackMouse: true,
   });
 
+  if (featuredMovies.length === 0) {
+    return (
+      <div className="flex items-center justify-center h-[80vh] bg-gray-900 text-white text-xl">
+        Loading featured movies...
+      </div>
+    );
+  }
+
+  const movie = featuredMovies[current];
+
   return (
-    <div {...handlers} className="relative w-full h-[80vh] overflow-hidden rounded-xl mt-25 md:mt-10">
+    <div
+      {...handlers}
+      className="relative w-full h-[500px] md:[650px] overflow-hidden rounded-xl mt-25 md:mt-10"
+    >
       <AnimatePresence>
         <motion.div
           key={current}
@@ -60,36 +60,34 @@ const HeroCarousel = () => {
           className="absolute w-full h-full"
         >
           <img
-            src={featuredMovies[current].posterUrl}
-            alt={featuredMovies[current].title}
-            className="w-full h-full object-cover brightness-75 overflow-hidden rounded-xl"
+            src={movie.posterUrl}
+            alt={movie.title}
+            className="w-full h-full object-cover md:object-center brightness-90 transition-all duration-700"
           />
 
-          {/* Gradient Overlay */}
           <div className="absolute inset-0 bg-linear-to-t from-black/90 via-transparent to-transparent"></div>
 
-          {/* Text Overlay */}
           <div className="absolute bottom-16 left-8 max-w-lg">
             <motion.h2
-              key={featuredMovies[current].title}
+              key={movie.title}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
               className="text-4xl md:text-6xl font-bold text-red-500 drop-shadow-xl tracking-wide"
             >
-              {featuredMovies[current].title}
+              {movie.title}
             </motion.h2>
+
             <motion.p
-              key={featuredMovies[current].genre}
+              key={movie.genre}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.8 }}
               className="mt-2 text-gray-300 text-lg md:text-xl drop-shadow-md"
             >
-              {featuredMovies[current].genre} | Rating: {featuredMovies[current].rating} ⭐
+              {movie.genre} | Rating: {movie.rating} ⭐
             </motion.p>
 
-            {/* Watch Now Button */}
             <motion.button
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}

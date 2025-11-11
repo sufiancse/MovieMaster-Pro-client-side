@@ -8,8 +8,6 @@ import useAuth from "../hooks/useAuth";
 import StatisticsSection from "../components/HomePageComponents/StatisticsSection";
 
 const Home = () => {
-  const { name } = useAuth();
-  console.log(name);
   return (
     <div>
       <div className="container mx-auto">
