@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { IoLogIn, IoLogInSharp, IoLogOut } from "react-icons/io5";
+import { IoLogOut } from "react-icons/io5";
 import { NavLink } from "react-router";
 import useAuth from "../hooks/useAuth";
-import { Link } from "lucide-react";
-import { FaUser } from "react-icons/fa";
 
 const Navbar = () => {
   const { signOutUser, user, setUser, loading } = useAuth();
@@ -112,11 +110,11 @@ const Navbar = () => {
               >
                 <div className="w-9 border-2 border-gray-300 rounded-full">
                   <img
-                    alt="Tailwind CSS Navbar component"
+                    alt="User"
                     referrerPolicy="no-referrer"
                     src={
                       user.photoURL ||
-                      "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                      "https://static.vecteezy.com/system/resources/thumbnails/002/318/271/small/user-profile-icon-free-vector.jpg"
                     }
                   />
                 </div>
@@ -170,38 +168,6 @@ const Navbar = () => {
               </NavLink>
             </div>
           )}
-
-          {/* <input
-            onChange={(e) => handleTheme(e.target.checked)}
-            type="checkbox"
-            defaultChecked={localStorage.getItem("theme") === "dark"}
-            className="toggle"
-          />
-
-          <div className="block md:hidden">
-            <NavLink to={"/login"}>
-              <IoLogInSharp size={24} />
-            </NavLink>
-          </div>
-
-          <div className="hidden md:block space-x-2">
-            <NavLink
-              to={"/login"}
-              className={({ isActive }) =>
-                isActive ? " btn btn-primary " : "btn "
-              }
-            >
-              Login
-            </NavLink>
-            <NavLink
-              to={"/register"}
-              className={({ isActive }) =>
-                isActive ? " btn btn-primary" : "btn"
-              }
-            >
-              Register
-            </NavLink>
-          </div> */}
         </div>
       </div>
     </div>

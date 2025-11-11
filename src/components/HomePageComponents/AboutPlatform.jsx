@@ -4,7 +4,7 @@ const AboutPlatform = () => {
   return (
     <section className="bg-gray-900 text-gray-100 py-16 px-4 md:px-16">
       <div className="max-w-6xl mx-auto text-center">
-        <h2 className="text-4xl md:text-5xl font-bold text-red-500 mb-6">
+        <h2 className="text-3xl  font-bold text-red-500 mb-6">
           About MovieMaster Pro
         </h2>
         <p className="text-gray-300 text-lg md:text-xl mb-12">

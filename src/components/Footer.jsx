@@ -32,7 +32,7 @@ const Footer = () => {
       </nav>
       <aside>
         <p>
-          Copyright © {new Date().getFullYear()} - All right reserved by <Link className="font-bold" to={'/'}>MovieMaster Pro</Link>
+          Copyright © {new Date().getFullYear()} - All right reserved by <Link className="font-bold text-red-500" to={'/'}>MovieMaster Pro</Link>
         </p>
       </aside>
     </footer>
