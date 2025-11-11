@@ -20,17 +20,17 @@ const MovieDetailsCard = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-900 p-4">
+    <div className="flex justify-center items-center min-h-screen  p-4">
       <div className="relative w-full max-w-4xl rounded-xl overflow-hidden shadow-2xl">
-        {/* Large Poster */}
+        
         <img
           src={movie.posterUrl}
           alt={movie.title}
           className="w-full h-[500px] object-cover"
         />
 
-        {/* Overlay Text */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent flex flex-col justify-end p-6">
+        
+        <div className="absolute inset-0 bg-linear-to-t from-black via-black/40 to-transparent flex flex-col justify-end p-6">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-2">
             {movie.title}
           </h2>
@@ -38,7 +38,7 @@ const MovieDetailsCard = () => {
             {movie.genre} • {movie.releaseYear}
           </p>
 
-          {/* Info Grid */}
+          
           <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-gray-200 mb-4">
             <p>
               <span className="font-semibold">Director:</span> {movie.director}
@@ -61,7 +61,7 @@ const MovieDetailsCard = () => {
             </p>
           </div>
 
-          {/* Plot */}
+          
           <p className="text-gray-300 text-sm mb-6 max-w-2xl">
             {expanded
               ? movie.plotSummary
@@ -74,7 +74,7 @@ const MovieDetailsCard = () => {
             </button>
           </p>
 
-          {/* Footer */}
+         
           <div className="flex justify-between items-center">
             <span className="text-xs text-gray-400">
               Added by: {movie.addedBy}

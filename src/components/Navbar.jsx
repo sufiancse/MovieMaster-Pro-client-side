@@ -31,7 +31,8 @@ const Navbar = () => {
       </li>
       <li>
         <NavLink
-          to={"/all-movies"}
+          to={"/movies"}
+          end
           className={({ isActive }) =>
             isActive ? "text-red-700 font-bold" : ""
           }
@@ -41,7 +42,7 @@ const Navbar = () => {
       </li>
       <li>
         <NavLink
-          to={"/my-collections"}
+          to={"/movies/my-collections"}
           className={({ isActive }) =>
             isActive ? "text-red-700 font-bold" : ""
           }
@@ -51,7 +52,7 @@ const Navbar = () => {
       </li>
       <li>
         <NavLink
-          to={"/add-movies"}
+          to={"/movies/add-movies"}
           className={({ isActive }) =>
             isActive ? "text-red-700 font-bold" : ""
           }

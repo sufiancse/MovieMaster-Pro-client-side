@@ -18,11 +18,11 @@ const MovieCard = ({ movie }) => {
             <span className="font-semibold">Genre:</span> {movie.genre}
           </p>
           <p className="text-gray-300">
-            <span className="font-semibold">Year:</span> {movie.year}
+            <span className="font-semibold">Year:</span> {movie.releaseYear}
           </p>
           <div className="flex justify-between items-center">
             <Link
-              to={`/movie/${movie.id}`}
+              to={`/movies/movie-details/${movie._id}`}
               className="mt-3 inline-block bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded transition-colors duration-300"
             >
               Details

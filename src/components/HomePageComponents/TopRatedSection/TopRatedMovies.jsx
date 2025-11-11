@@ -9,7 +9,7 @@ const TopRatedMovies = () => {
   const [topRatedMovies, setTopRatedMovies] = useState([])
 
   useEffect(() => {
-    axios.get('/top-rated-movies')
+    axios.get('/api/top-rated-movies')
     .then(data => setTopRatedMovies(data.data))
     .catch(error => console.log("data fetching error: ", error))
   },[axios])

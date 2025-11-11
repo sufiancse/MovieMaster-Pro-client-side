@@ -10,7 +10,7 @@ const HeroCarousel = () => {
 
   useEffect(() => {
     axios
-      .get("/latest-movies")
+      .get("/api/latest-movies")
       .then((res) => setFeaturedMovies(res.data))
       .catch((err) => console.error("Error fetching movies:", err));
   }, [axios]);

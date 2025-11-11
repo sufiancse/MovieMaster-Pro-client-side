@@ -20,11 +20,11 @@ const router = createBrowserRouter([
         Component: Home,
       },
       {
-        path: "/all-movies",
+        path: "/movies",
         Component: AllMovies,
       },
       {
-        path: "/my-collections",
+        path: "/movies/my-collections",
         Component: MyCollections,
       },
       {
@@ -36,11 +36,11 @@ const router = createBrowserRouter([
         element: <Register />,
       },
       {
-        path: "/movie-details",
+        path: "/movies/movie-details/:id",
         Component: MovieDetailsCard,
       },
       {
-        path: "/add-movies",
+        path: "/movies/add-movies",
         Component: AddMovies,
       },
     ],

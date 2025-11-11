@@ -8,7 +8,7 @@ const [recentMovies,setRecentMovies] = useState([])
 
 
   useEffect(() => {
-    axios.get('/latest-movies')
+    axios.get('/api/latest-movies')
     .then(data => setRecentMovies(data.data))
     .catch(error => console.log("Data fetching error: ", error))
   },[axios])
