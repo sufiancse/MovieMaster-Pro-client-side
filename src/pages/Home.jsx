@@ -4,8 +4,11 @@ import TopRatedMovies from "../components/HomePageComponents/TopRatedMovies";
 import RecentlyAdded from "../components/HomePageComponents/RecentlyAdded";
 import GenreSection from "../components/HomePageComponents/GenreSection";
 import AboutPlatform from "../components/HomePageComponents/AboutPlatform";
+import useAuth from "../hooks/useAuth";
 
 const Home = () => {
+  const {name} = useAuth()
+  console.log(name)
   return (
     <div>
       <div className="container mx-auto">

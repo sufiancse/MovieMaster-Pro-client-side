@@ -1,28 +1,32 @@
-import { useState } from "react";
 import { motion } from "framer-motion";
 import { Film, UserPlus } from "lucide-react";
+import useAuth from "../hooks/useAuth";
 
 const Register = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    photoURL: "",
-    password: "",
-  });
+  const { setUser, setLoading, googleSignin } = useAuth();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+  const handleGoogleSignin = () => {
+    googleSignin()
+      .then((result) => {
+        setLoading(false);
+        setUser(result.user);
+
+        alert("Login Successful.");
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
   };
+
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Registration data:", formData);
+    
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center  overflow-hidden py-10 mt-15">
-     
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
@@ -47,8 +51,6 @@ const Register = () => {
               type="text"
               name="name"
               placeholder="John Doe"
-              value={formData.name}
-              onChange={handleChange}
               required
               className="w-full bg-gray-800 border border-gray-700 text-white px-3 py-2 rounded-lg mt-1 focus:outline-none focus:ring-2 focus:ring-pink-600"
             />
@@ -61,8 +63,6 @@ const Register = () => {
               type="email"
               name="email"
               placeholder="you@example.com"
-              value={formData.email}
-              onChange={handleChange}
               required
               className="w-full bg-gray-800 border border-gray-700 text-white px-3 py-2 rounded-lg mt-1 focus:outline-none focus:ring-2 focus:ring-pink-600"
             />
@@ -77,8 +77,6 @@ const Register = () => {
               type="url"
               name="photoURL"
               placeholder="https://i.ibb.co/example.jpg"
-              value={formData.photoURL}
-              onChange={handleChange}
               required
               className="w-full bg-gray-800 border border-gray-700 text-white px-3 py-2 rounded-lg mt-1 focus:outline-none focus:ring-2 focus:ring-pink-600"
             />
@@ -93,8 +91,6 @@ const Register = () => {
               type="password"
               name="password"
               placeholder="••••••••"
-              value={formData.password}
-              onChange={handleChange}
               required
               className="w-full bg-gray-800 border border-gray-700 text-white px-3 py-2 rounded-lg mt-1 focus:outline-none focus:ring-2 focus:ring-pink-600"
             />
@@ -119,7 +115,7 @@ const Register = () => {
         {/* Google Login Button */}
         <button
           className="w-full flex items-center justify-center gap-3 bg-white text-gray-800 hover:bg-gray-100 transition-colors py-2 rounded-lg font-semibold"
-          onClick={() => alert("Google Login Clicked!")}
+          onClick={handleGoogleSignin}
         >
           <img
             src="https://www.svgrepo.com/show/475656/google-color.svg"

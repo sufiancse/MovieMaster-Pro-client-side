@@ -1,20 +1,29 @@
-import { useState } from "react";
 import { motion } from "framer-motion";
 import { Film, Lock } from "lucide-react";
+import useAuth from "../hooks/useAuth";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const { setUser, setLoading, googleSignin } = useAuth();
+
+  const handleGoogleSignin = () => {
+    googleSignin()
+      .then((result) => {
+        setLoading(false);
+        setUser(result.user);
+
+        alert("Login Successful.");
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
+  };
 
   const handleLogin = (e) => {
     e.preventDefault();
-    console.log("Login attempted:", { email, password });
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center  relative overflow-hidden mt-15">
-    
-
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
@@ -24,7 +33,7 @@ const Login = () => {
         <div className="flex flex-col items-center">
           <Film className="w-12 h-12 text-pink-500 mb-2" />
           <h1 className="text-2xl font-bold text-center tracking-wide">
-            MovieMaster ProLogin
+            MovieMaster Pro Login
           </h1>
           <p className="text-gray-400 text-sm">
             Enter your credentials to continue
@@ -36,21 +45,21 @@ const Login = () => {
             <label className="text-gray-300 text-sm font-medium">Email</label>
             <input
               type="email"
+              name="email"
               placeholder="you@example.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
               required
               className="w-full bg-gray-800 border border-gray-700 text-white px-3 py-2 rounded-lg mt-1 focus:outline-none focus:ring-2 focus:ring-pink-600"
             />
           </div>
 
           <div>
-            <label className="text-gray-300 text-sm font-medium">Password</label>
+            <label className="text-gray-300 text-sm font-medium">
+              Password
+            </label>
             <input
               type="password"
+              name="password"
               placeholder="••••••••"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
               required
               className="w-full bg-gray-800 border border-gray-700 text-white px-3 py-2 rounded-lg mt-1 focus:outline-none focus:ring-2 focus:ring-pink-600"
             />
@@ -74,7 +83,7 @@ const Login = () => {
         {/* Google Login Button */}
         <button
           className="w-full flex items-center justify-center gap-3 bg-white text-gray-800 hover:bg-gray-100 transition-colors py-2 rounded-lg font-semibold"
-          onClick={() => alert("Google Login Clicked!")}
+          onClick={handleGoogleSignin}
         >
           <img
             src="https://www.svgrepo.com/show/475656/google-color.svg"
@@ -93,8 +102,6 @@ const Login = () => {
       </motion.div>
     </div>
   );
-}
+};
 
-export default Login
-
-
+export default Login;

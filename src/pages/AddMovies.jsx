@@ -33,7 +33,7 @@ const AddMovies = () => {
         onSubmit={handleSubmit}
         className="w-full max-w-2xl  rounded-xl shadow-2xl p-8 space-y-6"
       >
-        <h2 className="text-2xl font-bold text-gray-800 text-center mb-4">
+        <h2 className="text-2xl font-bold  text-center mb-4">
           🎬 Add Movie - MovieMaster Pro
         </h2>
 
@@ -222,7 +222,7 @@ const AddMovies = () => {
         {/* Submit Button */}
         <button
           type="submit"
-          className="w-full bg-indigo-600 text-white py-3 rounded-lg font-semibold hover:bg-indigo-700 transition-colors duration-300"
+          className="w-full btn-primary text-white py-3 rounded-lg font-semibold  transition-colors duration-300"
         >
           ➕ Add Movie
         </button>
