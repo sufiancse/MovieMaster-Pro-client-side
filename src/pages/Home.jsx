@@ -1,11 +1,9 @@
-import React from "react";
 import HeroCarousel from "../components/HomePageComponents/HeroCarousel";
-import TopRatedMovies from "../components/HomePageComponents/TopRatedMovies";
-import RecentlyAdded from "../components/HomePageComponents/RecentlyAdded";
 import GenreSection from "../components/HomePageComponents/GenreSection";
 import AboutPlatform from "../components/HomePageComponents/AboutPlatform";
-import useAuth from "../hooks/useAuth";
 import StatisticsSection from "../components/HomePageComponents/StatisticsSection";
+import TopRatedMovies from "../components/HomePageComponents/TopRatedSection/TopRatedMovies";
+import RecentlyAdded from "../components/HomePageComponents/RecentMoviesSection/RecentlyAdded";
 
 const Home = () => {
   return (

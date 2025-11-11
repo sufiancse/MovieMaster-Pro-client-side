@@ -1,31 +1,38 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import useAxios from "../../hooks/useAxios";
 
 export default function StatisticsSection() {
+  const axios = useAxios();
   const [stats, setStats] = useState({ totalMovies: 0, totalUsers: 0 });
+  const [movies, setMovies] = useState([]);
 
   // Simulate API call manually
   useEffect(() => {
+    axios.get("/movies").then((data) => {
+      setMovies(data.data);
+    });
+
     const fetchData = () => {
-      // এখানে demo data ব্যবহার করছি (manually)
-      const fakeAPI = {
-        totalMovies: 128,
+      const totalMoviesAndUsers = {
+        totalMovies: movies.length,
         totalUsers: 452,
       };
-
-      // Animation feel এর জন্য একটু delay
+      
       setTimeout(() => {
-        setStats(fakeAPI);
+        setStats(totalMoviesAndUsers);
       }, 1000);
     };
 
     fetchData();
-  }, []);
+  }, [movies.length, axios]);
 
   return (
     <section className="py-16">
       <div className="container mx-auto text-center">
-        <h2 className="text-3xl font-bold mb-8 text-red-500">Platform Statistics</h2>
+        <h2 className="text-3xl font-bold mb-8 text-red-500">
+          Platform Statistics
+        </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl mx-auto text-white">
           {/* Total Movies */}
