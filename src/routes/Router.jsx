@@ -37,6 +37,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/movies/movie-details/:id",
+        loader: ({params}) => fetch(`http://localhost:3000/api/movies/${params.id}`),
         Component: MovieDetailsCard,
       },
       {

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSwipeable } from "react-swipeable";
 import useAxios from "../../hooks/useAxios";
+import LoadingSpinner from "../Loading";
 
 const HeroCarousel = () => {
   const axios = useAxios();
@@ -36,11 +37,7 @@ const HeroCarousel = () => {
   });
 
   if (featuredMovies.length === 0) {
-    return (
-      <div className="flex items-center justify-center h-[80vh] bg-gray-900 text-white text-xl">
-        Loading featured movies...
-      </div>
-    );
+    return <LoadingSpinner />
   }
 
   const movie = featuredMovies[current];

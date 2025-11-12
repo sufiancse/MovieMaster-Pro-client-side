@@ -41,7 +41,7 @@ const AddMovies = () => {
         {/* Title */}
         <div>
           <label className="block text-sm font-semibold  mb-1">
-            Title
+            Title<span className=" text-red-600">*</span>
           </label>
           <input
             type="text"
@@ -56,7 +56,7 @@ const AddMovies = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-semibold  mb-1">
-              Genre
+              Genre<span className=" text-red-600">*</span>
             </label>
             <input
               type="text"
@@ -68,7 +68,7 @@ const AddMovies = () => {
           </div>
           <div>
             <label className="block text-sm font-semibold  mb-1">
-              Release Year
+              Release Year<span className=" text-red-600">*</span>
             </label>
             <input
               type="number"
@@ -84,7 +84,7 @@ const AddMovies = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-semibold  mb-1">
-              Director
+              Director<span className=" text-red-600">*</span>
             </label>
             <input
               type="text"
@@ -96,7 +96,7 @@ const AddMovies = () => {
           </div>
           <div>
             <label className="block text-sm font-semibold  mb-1">
-              Cast
+              Cast<span className=" text-red-600">*</span>
             </label>
             <input
               type="text"
@@ -112,7 +112,7 @@ const AddMovies = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-semibold  mb-1">
-              Rating
+              Rating<span className=" text-red-600">*</span>
             </label>
             <input
               type="number"
@@ -125,7 +125,7 @@ const AddMovies = () => {
           </div>
           <div>
             <label className="block text-sm font-semibold  mb-1">
-              Duration (minutes)
+              Duration (minutes)<span className=" text-red-600">*</span>
             </label>
             <input
               type="number"
@@ -140,7 +140,7 @@ const AddMovies = () => {
         {/* Plot Summary */}
         <div>
           <label className="block text-sm font-semibold  mb-1">
-            Plot Summary
+            Plot Summary<span className=" text-red-600">*</span>
           </label>
           <textarea
             name="plotSummary"
@@ -154,7 +154,7 @@ const AddMovies = () => {
         {/* Poster URL */}
         <div>
           <label className="block text-sm font-semibold  mb-1">
-            Poster URL
+            Poster URL<span className=" text-red-600">*</span>
           </label>
           <input
             type="url"
@@ -169,7 +169,7 @@ const AddMovies = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-semibold  mb-1">
-              Language
+              Language<span className=" text-red-600">*</span>
             </label>
             <input
               type="text"
@@ -181,7 +181,7 @@ const AddMovies = () => {
           </div>
           <div>
             <label className="block text-sm font-semibold  mb-1">
-              Country
+              Country<span className=" text-red-600">*</span>
             </label>
             <input
               type="text"
@@ -191,20 +191,6 @@ const AddMovies = () => {
               placeholder="USA"
             />
           </div>
-        </div>
-
-        {/* Added By */}
-        <div>
-          <label className="block text-sm font-semibold  mb-1">
-            Added By
-          </label>
-          <input
-            
-            defaultValue={user?.email}
-            disabled
-            className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-            placeholder="user@example.com"
-          />
         </div>
 
         {/* Submit Button */}

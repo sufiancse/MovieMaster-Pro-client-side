@@ -12,7 +12,7 @@ const AllMovies = () => {
       .catch(error => console.log("data fetching error: ", error))
     },[axios])
     return (
-        <div className="container mx-auto my-10 px-4">
+        <div className="container mx-auto mt-5 mb-10 px-4">
       <h2 className="text-3xl font-bold mb-6 text-red-500">Enjoy All Movies</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
         {movies.map((movie) => <MovieCard key={movie._id} movie={movie}/>)}

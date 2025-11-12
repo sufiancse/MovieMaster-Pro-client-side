@@ -1,35 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useLoaderData } from "react-router";
+import LoadingSpinner from "../Loading";
 
 const MovieDetailsCard = () => {
   const [expanded, setExpanded] = React.useState(false);
-  const movie = {
-    title: "Inception",
-    genre: "Sci-Fi",
-    releaseYear: 2010,
-    director: "Christopher Nolan",
-    cast: "Leonardo DiCaprio, Joseph Gordon-Levitt",
-    rating: 8.8,
-    duration: 148,
-    plotSummary:
-      "A thief who steals corporate secrets through dream-sharing technology...",
-    posterUrl:
-      "https://www.originalfilmart.com/cdn/shop/files/inception_2010_advance_original_film_art_f4801a23-edb3-4db0-b382-1e2aec1dc927_5000x.jpg?v=1715962948",
-    language: "English",
-    country: "USA",
-    addedBy: "user@example.com",
-  };
+  const movie = useLoaderData();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, [1000]);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if(loading) return <LoadingSpinner />
 
   return (
     <div className="flex justify-center items-center min-h-screen  p-4">
       <div className="relative w-full max-w-4xl rounded-xl overflow-hidden shadow-2xl">
-        
         <img
           src={movie.posterUrl}
           alt={movie.title}
           className="w-full h-[500px] object-cover"
         />
 
-        
         <div className="absolute inset-0 bg-linear-to-t from-black via-black/40 to-transparent flex flex-col justify-end p-6">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-2">
             {movie.title}
@@ -38,7 +33,6 @@ const MovieDetailsCard = () => {
             {movie.genre} • {movie.releaseYear}
           </p>
 
-          
           <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-gray-200 mb-4">
             <p>
               <span className="font-semibold">Director:</span> {movie.director}
@@ -61,7 +55,6 @@ const MovieDetailsCard = () => {
             </p>
           </div>
 
-          
           <p className="text-gray-300 text-sm mb-6 max-w-2xl">
             {expanded
               ? movie.plotSummary
@@ -74,7 +67,6 @@ const MovieDetailsCard = () => {
             </button>
           </p>
 
-         
           <div className="flex justify-between items-center">
             <span className="text-xs text-gray-400">
               Added by: {movie.addedBy}
