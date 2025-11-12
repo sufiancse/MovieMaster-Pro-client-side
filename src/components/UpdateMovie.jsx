@@ -1,11 +1,13 @@
-import { useLoaderData } from "react-router";
+import { useLoaderData, useNavigate } from "react-router";
 import useAxios from "../hooks/useAxios";
 import { useState } from "react";
 import LoadingSpinner from "./Loading";
+import toast from "react-hot-toast";
 
 const UpdateMovie = () => {
   const axios = useAxios();
   const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
 
   const movie = useLoaderData();
   const {
@@ -24,7 +26,6 @@ const UpdateMovie = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true)
 
     const formData = {
       title: e.target.title.value,
@@ -39,23 +40,24 @@ const UpdateMovie = () => {
       language: e.target.language.value,
       country: e.target.country.value,
     };
-    // console.log(formData);
 
     try{
         const data = await axios.put(`/movies/update/${movie._id}`, formData)
         if(data.data.matchedCount){
-            // alert("Movie successfully updated.")
+            toast.success("Movie successfully updated.")
+            setTimeout(() => {
+              setLoading(true)
+              navigate(`/movies/movie-details/${movie._id}`)
+            }, 800);
         }
         else{
-            alert("Movie not updated! Try again.")
+            toast.error("Movie not updated! Try again.")
         }
     }
     catch (err){
-        alert("Updated Problem", err.message)
+        toast.error("Updated Problem", err.message)
     }
-    finally{
-        setLoading(false)
-    }
+    
 
   };
 

@@ -3,6 +3,7 @@ import useAuth from "../hooks/useAuth";
 import useAxios from "../hooks/useAxios";
 import { useNavigate } from "react-router";
 import LoadingSpinner from "../components/Loading";
+import toast from "react-hot-toast";
 
 const AddMovies = () => {
   const { user } = useAuth();
@@ -12,7 +13,6 @@ const AddMovies = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
 
     const formData = {
       title: e.target.title.value,
@@ -28,24 +28,22 @@ const AddMovies = () => {
       country: e.target.country.value,
       addedBy: user?.email,
     };
-    // console.log(formData);
 
     try {
       const data = await axios.post("/movies", formData);
 
       if (data.data.insertedId) {
-        alert("Movie successfully added.");
-        navigate("/movies");
+        toast.success("Movie successfully added.");
+        setTimeout(() => {
+          setLoading(true);
+          navigate("/movies");
+        }, 1200);
       } else {
-        alert("Movie not added.");
+        toast.error("Movie not added.");
       }
     } catch (err) {
-      alert("Add movie error:", err);
-    } finally {
-      setLoading(false);
+      toast.error("Add movie error:", err);
     }
-
-    
   };
 
   return (

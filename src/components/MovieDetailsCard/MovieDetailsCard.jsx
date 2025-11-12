@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 import useAxios from "../../hooks/useAxios";
 
 const MovieDetailsCard = () => {
-  const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = useState(false);
   const movie = useLoaderData();
   const [loading, setLoading] = useState(true);
   const { user } = useAuth();
@@ -36,7 +36,7 @@ const MovieDetailsCard = () => {
           .then(() => {
             Swal.fire({
               title: "Deleted!",
-              text: "Your file has been deleted.",
+              text: "Movie has been deleted.",
               icon: "success",
             });
             navigate('/movies')

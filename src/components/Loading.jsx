@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 const LoadingSpinner = () => {
   return (
-    <div className="flex flex-col justify-center items-center h-screen transition-colors duration-500 bg-gray-100 dark:bg-[#0f0f14]">
+    <div className="flex flex-col justify-center items-center h-screen transition-colors duration-500 ">
 
       <motion.div
         className="relative flex justify-center items-center"
