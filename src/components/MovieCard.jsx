@@ -1,6 +1,32 @@
 import { Link } from "react-router";
+// import useAxios from "../hooks/useAxios";
+import toast from "react-hot-toast";
+import useAuth from "../hooks/useAuth";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const MovieCard = ({ movie }) => {
+  const axiosSecure = useAxiosSecure()
+  const {user} = useAuth()
+
+  const handleWatchList = async() => {
+    try{
+      const {data} = await axiosSecure.post('/movies/watch-list', {...movie, watchList_by: user.email})
+      if(data.insertedId){
+        toast.success(`"${movie.title}" movie added in the watch list successfully.`)
+      }
+    
+    }
+    catch(err){
+      const v = err.status
+      if(v == 500){
+        toast.error(`"${movie.title}" movie already added in the watch list`)
+      }
+      else{
+        toast.error(err.message)
+      }
+      
+    }
+  }
   return (
     <div>
       <div className="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300 ">
@@ -27,7 +53,7 @@ const MovieCard = ({ movie }) => {
             >
               Details
             </Link>
-            <button className="mt-3 inline-block bg-transparent border hover:text-red-500 text-white font-semibold py-2 px-4 rounded transition-colors duration-300">
+            <button onClick={handleWatchList} className="mt-3 inline-block bg-transparent border hover:text-red-500 text-white font-semibold py-2 px-4 rounded transition-colors duration-300">
               {" "}
               WatchList
             </button>

@@ -60,6 +60,16 @@ const Navbar = () => {
           Add Movies
         </NavLink>
       </li>
+      <li>
+        <NavLink
+          to={"/movies/my-watch-list"}
+          className={({ isActive }) =>
+            isActive ? "text-red-700 font-bold" : ""
+          }
+        >
+          My Watch List
+        </NavLink>
+      </li>
     </>
   );
 
