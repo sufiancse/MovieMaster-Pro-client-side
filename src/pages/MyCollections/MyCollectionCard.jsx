@@ -1,10 +1,10 @@
 import { Edit3, Trash2 } from "lucide-react";
 import { Link } from "react-router";
 import Swal from "sweetalert2";
-import useAxios from "../../hooks/useAxios";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const MyCollectionCard = ({ movie,deleteFromUI }) => {
-  const axios = useAxios();
+  const axiosSecure = useAxiosSecure();
 
   const handleDelete = () => {
     Swal.fire({
@@ -17,7 +17,7 @@ const MyCollectionCard = ({ movie,deleteFromUI }) => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axios
+        axiosSecure
           .delete(`/movies/${movie._id}`)
           .then(() => {
             Swal.fire({
@@ -48,7 +48,9 @@ const MyCollectionCard = ({ movie,deleteFromUI }) => {
           />
           <div className="flex flex-col">
             <h2 className="text-lg font-semibold text-gray-800">
+              <Link to={`/movies/movie-details/${movie._id}`}>
               {movie.title}
+              </Link>
             </h2>
             <span className="text-gray-500">{movie.releaseYear}</span>
           </div>

@@ -11,7 +11,7 @@ const MovieDetailsCard = () => {
   const [loading, setLoading] = useState(true);
   const { user } = useAuth();
   const axios = useAxios();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -39,14 +39,13 @@ const MovieDetailsCard = () => {
               text: "Movie has been deleted.",
               icon: "success",
             });
-            navigate('/movies')
+            navigate("/movies");
           })
           .catch((err) =>
             Swal.fire({
               icon: "error",
               title: "Oops...",
               text: "Something went wrong!",
-             
             })
           );
       }
@@ -112,9 +111,13 @@ const MovieDetailsCard = () => {
             <span className="text-xs text-gray-400">
               Added by: {movie.addedBy}
             </span>
-            <button className="bg-indigo-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-indigo-700 transition-colors duration-300">
+            <a
+              href="https://www.netflix.com"
+              target="_blank"
+              className="bg-indigo-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-indigo-700 transition-colors duration-300"
+            >
               Watch Now
-            </button>
+            </a>
           </div>
         </div>
       </div>
@@ -124,7 +127,7 @@ const MovieDetailsCard = () => {
           <>
             <Link
               to={`/movies/update-movie/${movie._id}`}
-              state={{from: `/movies/movie-details/${movie._id}`}}
+              state={{ from: `/movies/movie-details/${movie._id}` }}
               className="btn btn-primary"
             >
               Update

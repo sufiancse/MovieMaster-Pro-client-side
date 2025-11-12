@@ -1,6 +1,7 @@
 import { Trash2 } from "lucide-react";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { Link } from "react-router";
 
 const MyWatchListCard = ({ movie, deleteFromUI }) => {
   const axiosSecure = useAxiosSecure();
@@ -47,9 +48,11 @@ const MyWatchListCard = ({ movie, deleteFromUI }) => {
           />
           <div className="flex flex-col">
             <h2 className="text-lg font-semibold text-gray-800">
+              <Link to={`/movies/movie-details/${movie._id}`}>
               {movie.title}
+              </Link>
             </h2>
-            <span className="text-gray-500">{movie.releaseYear}</span>
+            <span className="text-gray-500">{movie.releaseYear} | <span className="text-yellow-600 font-semibold">{movie.rating}⭐</span></span>
           </div>
         </div>
 
