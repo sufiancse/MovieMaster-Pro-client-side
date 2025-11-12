@@ -1,23 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { useLoaderData } from "react-router";
+import { Link, useLoaderData } from "react-router";
 import LoadingSpinner from "../Loading";
+import useAuth from "../../hooks/useAuth";
 
 const MovieDetailsCard = () => {
   const [expanded, setExpanded] = React.useState(false);
   const movie = useLoaderData();
   const [loading, setLoading] = useState(true);
+  const { user } = useAuth();
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, [1000]);
+    }, [500]);
     return () => clearTimeout(timer);
   }, []);
 
-  if(loading) return <LoadingSpinner />
+  if (loading) return <LoadingSpinner />;
+
+  const isActive = user?.email === movie?.addedBy;
 
   return (
-    <div className="flex justify-center items-center min-h-screen  p-4">
+    <div className="h-screen  p-4 flex flex-col justify-center items-center">
       <div className="relative w-full max-w-4xl rounded-xl overflow-hidden shadow-2xl">
         <img
           src={movie.posterUrl}
@@ -76,6 +80,15 @@ const MovieDetailsCard = () => {
             </button>
           </div>
         </div>
+      </div>
+
+      <div className="my-5 space-x-5 text-center">
+        {isActive && (
+          <>
+            <Link className="btn btn-primary">Update</Link>
+            <button className="btn btn-primary">Delete</button>
+          </>
+        )}
       </div>
     </div>
   );

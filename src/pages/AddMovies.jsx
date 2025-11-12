@@ -25,7 +25,10 @@ const AddMovies = () => {
     // console.log(formData);
 
     axios.post('/movies', formData)
-    .then(data => console.log(data.data))
+    .then((data) => {
+      alert("Movie added successfully.")
+      console.log(data.data);
+    })
   };
 
   return (
