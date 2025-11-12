@@ -1,6 +1,5 @@
 import { useState } from "react";
 import useAuth from "../hooks/useAuth";
-// import useAxios from "../hooks/useAxios";
 import { useNavigate } from "react-router";
 import LoadingSpinner from "../components/Loading";
 import toast from "react-hot-toast";
@@ -8,7 +7,6 @@ import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const AddMovies = () => {
   const { user } = useAuth();
-  // const axios = useAxios();
   const axiosSecure = useAxiosSecure()
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -49,7 +47,7 @@ const AddMovies = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen  p-6">
+    <div className="flex justify-center items-center min-h-screen mt-20 md:mt-0 p-6">
       {loading ? (
         <LoadingSpinner />
       ) : (

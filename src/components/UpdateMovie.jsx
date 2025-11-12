@@ -1,15 +1,24 @@
-import { useLoaderData, useNavigate } from "react-router";
-import { useState } from "react";
+import { useLoaderData, useLocation, useNavigate } from "react-router";
+import { useEffect, useState } from "react";
 import LoadingSpinner from "./Loading";
 import toast from "react-hot-toast";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const UpdateMovie = () => {
   const axiosSecure = useAxiosSecure()
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const navigate = useNavigate()
-
+  const location = useLocation()
   const movie = useLoaderData();
+
+  useEffect(() => {
+    if(movie){
+      setLoading(false)
+    }
+  },[movie])
+
+  const clickFrom = location.state?.from || `/movies/movie-details/${movie._id}`
+
   const {
     title,
     genre,
@@ -26,6 +35,7 @@ const UpdateMovie = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true)
 
     const formData = {
       title: e.target.title.value,
@@ -46,23 +56,25 @@ const UpdateMovie = () => {
         if(data.data.matchedCount){
             toast.success("Movie successfully updated.")
             setTimeout(() => {
-              setLoading(true)
-              navigate(`/movies/movie-details/${movie._id}`)
+              navigate(clickFrom)
             }, 800);
         }
         else{
             toast.error("Movie not updated! Try again.")
         }
+        
     }
     catch (err){
         toast.error("Updated Problem", err.message)
     }
-    
+    finally{
+          setLoading(false)
+        }
 
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen  p-6">
+    <div className="flex justify-center items-center min-h-screen  p-6 mt-20 md:mt-0">
         {loading ? <LoadingSpinner />:(
              <form
         onSubmit={handleSubmit}

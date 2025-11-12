@@ -124,6 +124,7 @@ const MovieDetailsCard = () => {
           <>
             <Link
               to={`/movies/update-movie/${movie._id}`}
+              state={{from: `/movies/movie-details/${movie._id}`}}
               className="btn btn-primary"
             >
               Update

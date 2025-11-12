@@ -1,9 +1,10 @@
-import { Edit3, Trash2 } from "lucide-react";
+
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import LoadingSpinner from "../../components/Loading";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
+import MyCollectionCard from "./MyCollectionCard";
 
 const MyCollections = () => {
   const axiosSecure = useAxiosSecure();
@@ -28,32 +29,24 @@ const MyCollections = () => {
     if (user?.email) dataFetching();
   }, [user?.email]);
 
+  const deleteFromUI = (id) => {
+    setMovies((prev)=> prev.filter(m=> m._id !== id))
+  }
+
   if (loading) <LoadingSpinner />;
 
   return (
-    <div className="container mx-auto my-10 px-4">
-      <h2 className="text-3xl font-bold mb-6 text-red-500">My Collections</h2>
-      <div className="flex items-center justify-between  dark:bg-base-content rounded-xl shadow p-4 mb-4 hover:shadow-md transition">
-        <div className="flex items-center gap-4">
-          <img
-            src="https://i.ibb.co.com/7hKGs30/superman.jpg"
-            alt="title"
-            className="w-20 h-28 object-cover rounded-lg"
-          />
-          <div className="flex flex-col">
-            <h2 className="text-lg font-semibold text-gray-800">Movie Name</h2>
-            <span className="text-gray-500">2024</span>
-          </div>
-        </div>
+    <div className="container mx-auto my-10 px-4 mt-20 md:mt-5">
+      <h2 className="text-3xl font-bold mb-6 text-red-500">My Collections ({movies.length})</h2>
 
-        <div className="flex gap-2">
-          <button className="flex items-center justify-center p-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
-            <Edit3 size={18} />
-          </button>
-          <button className="flex items-center justify-center p-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition">
-            <Trash2 size={18} />
-          </button>
-        </div>
+      <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-5">
+        {movies.length > 0 && loading === false ? (
+          movies.map(movie => <MyCollectionCard key={movie._id} movie={movie} deleteFromUI={deleteFromUI}/>)
+        ) : (
+          <p className="text-center my-10 col-span-3 text-gray-500 font-bold text-2xl">
+            No movies found.
+          </p>
+        )}
       </div>
     </div>
   );
