@@ -1,20 +1,26 @@
 import { motion } from "framer-motion";
 import { Film, Lock } from "lucide-react";
 import useAuth from "../hooks/useAuth";
+import { Link, useLocation, useNavigate } from "react-router";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const { setUser, setLoading, googleSignin } = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const clickFrom = location.state?.from || "/";
 
   const handleGoogleSignin = () => {
     googleSignin()
       .then((result) => {
         setLoading(false);
         setUser(result.user);
+        toast.success("Login Successful.");
 
-        alert("Login Successful.");
+        navigate(clickFrom, { replace: true });
       })
       .catch((err) => {
-        alert(err.message);
+        toast.error("Google login error: ", err.message);
       });
   };
 
@@ -67,13 +73,12 @@ const Login = () => {
 
           <button
             type="submit"
-            className="w-full btn-primary transition-all font-semibold text-white py-2 rounded-lg flex items-center justify-center"
+            className="w-full btn-primary transition-all font-semibold text-white py-2 rounded-lg flex items-center justify-center cursor-pointer"
           >
             <Lock className="w-4 h-4 mr-2" /> Login
           </button>
         </form>
 
-        {/* OR Divider */}
         <div className="flex items-center my-6">
           <div className="grow border-t border-gray-600"></div>
           <span className="mx-2 text-gray-400 text-sm">OR</span>
@@ -82,7 +87,7 @@ const Login = () => {
 
         {/* Google Login Button */}
         <button
-          className="w-full flex items-center justify-center gap-3 bg-white text-gray-800 hover:bg-gray-100 transition-colors py-2 rounded-lg font-semibold"
+          className="w-full flex items-center justify-center gap-3 bg-white text-gray-800 hover:bg-gray-100 transition-colors py-2 rounded-lg font-semibold cursor-pointer"
           onClick={handleGoogleSignin}
         >
           <img
@@ -95,9 +100,13 @@ const Login = () => {
 
         <p className="text-center mt-4 text-gray-400 text-sm">
           Don’t have an account?{" "}
-          <a href="/register" className="text-pink-500 hover:underline">
+          <Link
+            to="/register"
+            state={{ from: location.state?.from }}
+            className="text-pink-500 hover:underline cursor-pointer"
+          >
             Register
-          </a>
+          </Link>
         </p>
       </motion.div>
     </div>

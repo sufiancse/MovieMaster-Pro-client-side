@@ -1,11 +1,11 @@
 import { useLoaderData, useNavigate } from "react-router";
-import useAxios from "../hooks/useAxios";
 import { useState } from "react";
 import LoadingSpinner from "./Loading";
 import toast from "react-hot-toast";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const UpdateMovie = () => {
-  const axios = useAxios();
+  const axiosSecure = useAxiosSecure()
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
 
@@ -42,7 +42,7 @@ const UpdateMovie = () => {
     };
 
     try{
-        const data = await axios.put(`/movies/update/${movie._id}`, formData)
+        const data = await axiosSecure.put(`/movies/update/${movie._id}`, formData)
         if(data.data.matchedCount){
             toast.success("Movie successfully updated.")
             setTimeout(() => {

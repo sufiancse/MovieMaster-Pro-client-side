@@ -1,9 +1,15 @@
 import { motion } from "framer-motion";
 import { Film, UserPlus } from "lucide-react";
 import useAuth from "../hooks/useAuth";
+import { Link, useLocation, useNavigate } from "react-router";
+import toast from "react-hot-toast";
 
 const Register = () => {
   const { setUser, setLoading, googleSignin } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const clickFrom = location.state?.from || "/";
 
   const handleGoogleSignin = () => {
     googleSignin()
@@ -11,18 +17,16 @@ const Register = () => {
         setLoading(false);
         setUser(result.user);
 
-        alert("Login Successful.");
+        toast.success("Login Successful.");
+        navigate(clickFrom, { replace: true });
       })
       .catch((err) => {
-        alert(err.message);
+        toast.error("Google login error: ", err.message);
       });
   };
 
-  
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    
   };
 
   return (
@@ -99,13 +103,12 @@ const Register = () => {
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full btn-primary transition-all font-semibold text-white py-2 rounded-lg flex items-center justify-center"
+            className="cursor-pointer w-full btn-primary transition-all font-semibold text-white py-2 rounded-lg flex items-center justify-center"
           >
             <UserPlus className="w-4 h-4 mr-2" /> Register
           </button>
         </form>
 
-        {/* OR Divider */}
         <div className="flex items-center my-6">
           <div className="grow border-t border-gray-600"></div>
           <span className="mx-2 text-gray-400 text-sm">OR</span>
@@ -114,7 +117,7 @@ const Register = () => {
 
         {/* Google Login Button */}
         <button
-          className="w-full flex items-center justify-center gap-3 bg-white text-gray-800 hover:bg-gray-100 transition-colors py-2 rounded-lg font-semibold"
+          className="cursor-pointer w-full flex items-center justify-center gap-3 bg-white text-gray-800 hover:bg-gray-100 transition-colors py-2 rounded-lg font-semibold"
           onClick={handleGoogleSignin}
         >
           <img
@@ -127,9 +130,13 @@ const Register = () => {
 
         <p className="text-center mt-4 text-gray-400 text-sm">
           Already have an account?{" "}
-          <a href="/login" className="text-pink-500 hover:underline">
+          <Link
+            to="/login"
+            state={{ from: location.state?.from }}
+            className="text-pink-500 hover:underline"
+          >
             Login
-          </a>
+          </Link>
         </p>
       </motion.div>
     </div>

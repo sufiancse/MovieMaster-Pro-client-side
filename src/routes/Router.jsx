@@ -3,12 +3,13 @@ import MainLayout from "../layouts/MainLayout";
 import Home from "../pages/Home";
 import Error from "../pages/Error";
 import AllMovies from "../pages/AllMovies";
-import MyCollections from "../pages/MyCollections";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import MovieDetailsCard from "../components/MovieDetailsCard/MovieDetailsCard";
 import AddMovies from "../pages/AddMovies";
 import UpdateMovie from "../components/UpdateMovie";
+import PrivateRoute from "./PrivateRoute";
+import MyCollections from "../pages/MyCollections/MyCollections";
 
 const router = createBrowserRouter([
   {
@@ -26,7 +27,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/movies/my-collections",
-        Component: MyCollections,
+        element: (
+          <PrivateRoute>
+            <MyCollections />,
+          </PrivateRoute>
+        ),
       },
       {
         path: "/login",
@@ -38,17 +43,27 @@ const router = createBrowserRouter([
       },
       {
         path: "/movies/movie-details/:id",
-        loader: ({params}) => fetch(`http://localhost:3000/api/movies/${params.id}`),
+        loader: ({ params }) =>
+          fetch(`http://localhost:3000/api/movies/${params.id}`),
         Component: MovieDetailsCard,
       },
       {
         path: "/movies/update-movie/:id",
-        loader: ({params}) => fetch(`http://localhost:3000/api/movies/${params.id}`),
-        Component: UpdateMovie,
+        loader: ({ params }) =>
+          fetch(`http://localhost:3000/api/movies/${params.id}`),
+        element: (
+          <PrivateRoute>
+            <UpdateMovie />,
+          </PrivateRoute>
+        ),
       },
       {
         path: "/movies/add-movies",
-        Component: AddMovies,
+        element: (
+          <PrivateRoute>
+            <AddMovies></AddMovies>
+          </PrivateRoute>
+        ),
       },
     ],
   },

@@ -1,13 +1,15 @@
 import { useState } from "react";
 import useAuth from "../hooks/useAuth";
-import useAxios from "../hooks/useAxios";
+// import useAxios from "../hooks/useAxios";
 import { useNavigate } from "react-router";
 import LoadingSpinner from "../components/Loading";
 import toast from "react-hot-toast";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const AddMovies = () => {
   const { user } = useAuth();
-  const axios = useAxios();
+  // const axios = useAxios();
+  const axiosSecure = useAxiosSecure()
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -30,7 +32,7 @@ const AddMovies = () => {
     };
 
     try {
-      const data = await axios.post("/movies", formData);
+      const data = await axiosSecure.post("/movies", formData);
 
       if (data.data.insertedId) {
         toast.success("Movie successfully added.");
