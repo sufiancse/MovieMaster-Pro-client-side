@@ -21,7 +21,7 @@ const MovieDetailsCard = () => {
   const isActive = user?.email === movie?.addedBy;
 
   return (
-    <div className="h-screen  p-4 flex flex-col justify-center items-center">
+    <div className="min-h-screen  p-4 flex flex-col justify-center items-center">
       <div className="relative w-full max-w-4xl rounded-xl overflow-hidden shadow-2xl">
         <img
           src={movie.posterUrl}
@@ -85,7 +85,7 @@ const MovieDetailsCard = () => {
       <div className="my-5 space-x-5 text-center">
         {isActive && (
           <>
-            <Link className="btn btn-primary">Update</Link>
+            <Link to={`/movies/update-movie/${movie._id}`} className="btn btn-primary">Update</Link>
             <button className="btn btn-primary">Delete</button>
           </>
         )}

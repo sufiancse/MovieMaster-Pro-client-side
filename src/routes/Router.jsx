@@ -8,6 +8,7 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import MovieDetailsCard from "../components/MovieDetailsCard/MovieDetailsCard";
 import AddMovies from "../pages/AddMovies";
+import UpdateMovie from "../components/UpdateMovie";
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,11 @@ const router = createBrowserRouter([
         path: "/movies/movie-details/:id",
         loader: ({params}) => fetch(`http://localhost:3000/api/movies/${params.id}`),
         Component: MovieDetailsCard,
+      },
+      {
+        path: "/movies/update-movie/:id",
+        loader: ({params}) => fetch(`http://localhost:3000/api/movies/${params.id}`),
+        Component: UpdateMovie,
       },
       {
         path: "/movies/add-movies",
