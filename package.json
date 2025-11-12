@@ -21,6 +21,7 @@
     "react-router": "^7.9.5",
     "react-swipeable": "^7.0.2",
     "router": "^2.2.0",
+    "sweetalert2": "^11.26.3",
     "tailwindcss": "^4.1.17"
   },
   "devDependencies": {

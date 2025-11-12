@@ -1,8 +1,11 @@
 import { useLoaderData } from "react-router";
 import useAxios from "../hooks/useAxios";
+import { useState } from "react";
+import LoadingSpinner from "./Loading";
 
 const UpdateMovie = () => {
   const axios = useAxios();
+  const [loading, setLoading] = useState(false)
 
   const movie = useLoaderData();
   const {
@@ -19,8 +22,10 @@ const UpdateMovie = () => {
     country,
   } = movie || {};
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true)
+
     const formData = {
       title: e.target.title.value,
       genre: e.target.genre.value,
@@ -36,18 +41,28 @@ const UpdateMovie = () => {
     };
     // console.log(formData);
 
-    axios.put(`/movies/update/${movie._id}`, formData).then((data) => {
-      if (data.data.matchedCount) {
-        alert("Movie successfully updated.");
+    try{
+        const data = await axios.put(`/movies/update/${movie._id}`, formData)
+        if(data.data.matchedCount){
+            // alert("Movie successfully updated.")
+        }
+        else{
+            alert("Movie not updated! Try again.")
+        }
+    }
+    catch (err){
+        alert("Updated Problem", err.message)
+    }
+    finally{
+        setLoading(false)
+    }
 
-      }
-    })
-    .catch(err => alert("Updated problem", err))
   };
 
   return (
     <div className="flex justify-center items-center min-h-screen  p-6">
-      <form
+        {loading ? <LoadingSpinner />:(
+             <form
         onSubmit={handleSubmit}
         className="w-full max-w-2xl  rounded-xl shadow-2xl p-8 space-y-6"
       >
@@ -219,6 +234,8 @@ const UpdateMovie = () => {
           </button>
         </div>
       </form>
+        )}
+     
     </div>
   );
 };

@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLoaderData } from "react-router";
+import { Link, useLoaderData, useNavigate } from "react-router";
 import LoadingSpinner from "../Loading";
 import useAuth from "../../hooks/useAuth";
+import Swal from "sweetalert2";
+import useAxios from "../../hooks/useAxios";
 
 const MovieDetailsCard = () => {
   const [expanded, setExpanded] = React.useState(false);
   const movie = useLoaderData();
   const [loading, setLoading] = useState(true);
   const { user } = useAuth();
+  const axios = useAxios();
+  const navigate = useNavigate()
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -15,6 +19,39 @@ const MovieDetailsCard = () => {
     }, [500]);
     return () => clearTimeout(timer);
   }, []);
+
+  const handleDelete = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`/movies/${movie._id}`)
+          .then(() => {
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success",
+            });
+            navigate('/movies')
+          })
+          .catch((err) =>
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Something went wrong!",
+             
+            })
+          );
+      }
+    });
+  };
 
   if (loading) return <LoadingSpinner />;
 
@@ -85,8 +122,15 @@ const MovieDetailsCard = () => {
       <div className="my-5 space-x-5 text-center">
         {isActive && (
           <>
-            <Link to={`/movies/update-movie/${movie._id}`} className="btn btn-primary">Update</Link>
-            <button className="btn btn-primary">Delete</button>
+            <Link
+              to={`/movies/update-movie/${movie._id}`}
+              className="btn btn-primary"
+            >
+              Update
+            </Link>
+            <button onClick={handleDelete} className="btn btn-primary">
+              Delete
+            </button>
           </>
         )}
       </div>

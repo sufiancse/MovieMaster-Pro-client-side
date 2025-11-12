@@ -23,7 +23,7 @@ const LoadingSpinner = () => {
         animate={{ opacity: [0.4, 1, 0.4] }}
         transition={{ repeat: Infinity, duration: 1.5 }}
       >
-        Loading, please wait...
+        Please wait a moment...
       </motion.p>
     </div>
   );
