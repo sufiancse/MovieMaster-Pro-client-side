@@ -11,12 +11,13 @@ import UpdateMovie from "../components/UpdateMovie";
 import PrivateRoute from "./PrivateRoute";
 import MyCollections from "../pages/MyCollections/MyCollections";
 import MyWatchList from "../pages/MyWatchList/MyWatchList";
+import ErrorBoundary from "../pages/ErrorBoundary";
 
 const router = createBrowserRouter([
   {
     path: "/",
     Component: MainLayout,
-    errorElement: <Error />,
+    errorElement: <ErrorBoundary />,
     children: [
       {
         index: true,
@@ -67,11 +68,18 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path:'/movies/my-watch-list',
-        element: <PrivateRoute>
-          <MyWatchList />
-        </PrivateRoute>
-      }
+        path: "/movies/my-watch-list",
+        element: (
+          <PrivateRoute>
+            <MyWatchList />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "*",
+        Component: Error,
+      },
+      
     ],
   },
 ]);

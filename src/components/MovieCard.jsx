@@ -17,13 +17,8 @@ const MovieCard = ({ movie }) => {
     
     }
     catch(err){
-      const v = err.status
-      if(v == 500){
-        toast.error(`"${movie.title}" movie already added in the watch list`)
-      }
-      else{
         toast.error(err.message)
-      }
+      
       
     }
   }

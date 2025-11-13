@@ -4,7 +4,7 @@ import { NavLink } from "react-router";
 import useAuth from "../hooks/useAuth";
 
 const Navbar = () => {
-  const { signOutUser, user, setUser, loading } = useAuth();
+  const { signOutUser, user, loading } = useAuth();
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
 
   useEffect(() => {
@@ -40,36 +40,40 @@ const Navbar = () => {
           All Movies
         </NavLink>
       </li>
-      <li>
-        <NavLink
-          to={"/movies/my-collections"}
-          className={({ isActive }) =>
-            isActive ? "text-red-700 font-bold" : ""
-          }
-        >
-          My Collection
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to={"/movies/add-movies"}
-          className={({ isActive }) =>
-            isActive ? "text-red-700 font-bold" : ""
-          }
-        >
-          Add Movies
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to={"/movies/my-watch-list"}
-          className={({ isActive }) =>
-            isActive ? "text-red-700 font-bold" : ""
-          }
-        >
-          My Watch List
-        </NavLink>
-      </li>
+      {user && (
+        <>
+          <li>
+            <NavLink
+              to={"/movies/my-collections"}
+              className={({ isActive }) =>
+                isActive ? "text-red-700 font-bold" : ""
+              }
+            >
+              My Collection
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to={"/movies/add-movies"}
+              className={({ isActive }) =>
+                isActive ? "text-red-700 font-bold" : ""
+              }
+            >
+              Add Movies
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to={"/movies/my-watch-list"}
+              className={({ isActive }) =>
+                isActive ? "text-red-700 font-bold" : ""
+              }
+            >
+              My Watch List
+            </NavLink>
+          </li>
+        </>
+      )}
     </>
   );
 

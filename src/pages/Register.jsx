@@ -3,17 +3,20 @@ import { Film, UserPlus } from "lucide-react";
 import useAuth from "../hooks/useAuth";
 import { Link, useLocation, useNavigate } from "react-router";
 import toast from "react-hot-toast";
+import useAxios from "../hooks/useAxios";
 
 const Register = () => {
   const { setUser, setLoading, googleSignin } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  cosnt axios = useAxios()
 
   const clickFrom = location.state?.from || "/";
 
   const handleGoogleSignin = () => {
     googleSignin()
       .then((result) => {
+        console.log(result.user);
         setLoading(false);
         setUser(result.user);
 
