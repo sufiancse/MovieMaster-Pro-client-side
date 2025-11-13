@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { IoLogOut } from "react-icons/io5";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 import useAuth from "../hooks/useAuth";
 
 const Navbar = () => {
@@ -40,18 +40,18 @@ const Navbar = () => {
           All Movies
         </NavLink>
       </li>
+      <li>
+        <NavLink
+          to={"/movies/my-collections"}
+          className={({ isActive }) =>
+            isActive ? "text-red-700 font-bold" : ""
+          }
+        >
+          My Collection
+        </NavLink>
+      </li>
       {user && (
         <>
-          <li>
-            <NavLink
-              to={"/movies/my-collections"}
-              className={({ isActive }) =>
-                isActive ? "text-red-700 font-bold" : ""
-              }
-            >
-              My Collection
-            </NavLink>
-          </li>
           <li>
             <NavLink
               to={"/movies/add-movies"}
@@ -106,9 +106,9 @@ const Navbar = () => {
               {links}
             </ul>
           </div>
-          <a className="text-2xl font-bold text-red-500 tracking-wide">
+          <Link to={'/'} className="text-2xl font-bold text-red-500 tracking-wide">
             MovieMaster Pro
-          </a>
+          </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{links}</ul>

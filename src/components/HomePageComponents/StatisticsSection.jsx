@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import useAxios from "../../hooks/useAxios";
 
-export default function StatisticsSection() {
+const StatisticsSection = () => {
   const axios = useAxios();
   const [stats, setStats] = useState({ totalMovies: 0, totalUsers: 0 });
 
@@ -71,4 +71,5 @@ export default function StatisticsSection() {
       </div>
     </section>
   );
-}
+};
+export default StatisticsSection;

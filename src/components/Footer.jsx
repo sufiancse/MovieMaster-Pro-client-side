@@ -28,6 +28,7 @@ const Footer = () => {
           <a href="#" className="text-gray-100 hover:text-gray-400 transition">
             <FaYoutube size={24} />
           </a>
+          
         </div>
       </nav>
       <aside>
