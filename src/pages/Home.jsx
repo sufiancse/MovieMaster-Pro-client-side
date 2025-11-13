@@ -6,8 +6,9 @@ import TopRatedMovies from "../components/HomePageComponents/TopRatedSection/Top
 import RecentlyAdded from "../components/HomePageComponents/RecentMoviesSection/RecentlyAdded";
 
 const Home = () => {
+  
   return (
-    <div>
+    <div >
       <div className="container mx-auto">
         <HeroCarousel />
         <TopRatedMovies />

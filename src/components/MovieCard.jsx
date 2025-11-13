@@ -1,12 +1,18 @@
 import { Link } from "react-router";
-// import useAxios from "../hooks/useAxios";
 import toast from "react-hot-toast";
 import useAuth from "../hooks/useAuth";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 
+import { useEffect } from "react";
+import Aos from "aos";
+import "aos/dist/aos.css";
+
 const MovieCard = ({ movie }) => {
   const axiosSecure = useAxiosSecure()
   const {user} = useAuth()
+  useEffect(() => {
+    Aos.init({ duration: 1000, once: false, easing: "ease-out-cubic" });
+  }, []);
 
   const handleWatchList = async() => {
     try{
@@ -14,16 +20,15 @@ const MovieCard = ({ movie }) => {
       if(data.insertedId){
         toast.success(`"${movie.title}" movie added in the watch list successfully.`)
       }
-    
     }
     catch(err){
         toast.error(err.message)
-      
-      
     }
   }
   return (
-    <div>
+    <div data-aos="zoom-in"
+      data-aos-easing="ease-out-cubic"
+      data-aos-duration="2000">
       <div className="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300 ">
         <img
           src={movie.posterUrl}
