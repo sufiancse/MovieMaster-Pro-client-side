@@ -4,19 +4,37 @@ import useAuth from "../hooks/useAuth";
 import { Link, useLocation, useNavigate } from "react-router";
 import toast from "react-hot-toast";
 import useAxios from "../hooks/useAxios";
+import { useState } from "react";
+import { auth } from "../firebase/firebase.config";
 
 const Register = () => {
-  const { setUser, setLoading, googleSignin } = useAuth();
+  const {
+    setUser,
+    setLoading,
+    googleSignin,
+    createUserWithEmailPass,
+    updateUserProfile,
+  } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  cosnt axios = useAxios()
+  const axios = useAxios();
+  const [error, setError] = useState("");
 
   const clickFrom = location.state?.from || "/";
 
   const handleGoogleSignin = () => {
     googleSignin()
       .then((result) => {
-        console.log(result.user);
+        const newUser = {
+          name: result.user.displayName,
+          email: result.user.email,
+          image: result.user.photoURL,
+        };
+
+        axios.post("/users", newUser).then((data) => {
+          console.log(data.data);
+        });
+
         setLoading(false);
         setUser(result.user);
 
@@ -30,6 +48,45 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const displayName = e.target.name.value;
+    const email = e.target.email.value;
+    const photoURL = e.target.photoURL.value;
+    const password = e.target.password.value;
+
+    const newUser = {
+      name: displayName,
+      email,
+      image: photoURL,
+    };
+
+    const regEx = /^(?=.*[A-Z])(?=.*[a-z]).{6,}$/;
+
+    if (!regEx.test(password)) {
+      setError(
+        "Invalid password! Must contain at least 1 uppercase, 1 lowercase, and be 6+ characters long."
+      );
+      return;
+    } else setError("");
+
+    createUserWithEmailPass(email, password)
+      .then(() => {
+        updateUserProfile(displayName, photoURL)
+
+          .then(() => {
+
+             setUser({ ...auth.currentUser });
+
+            axios.post('/users', newUser)
+            .then(({data} )=> console.log(data))
+
+            navigate(clickFrom);
+            toast.success("Account Create Successful");
+          })
+          .catch((err) => {
+            toast.error(err.message);
+          });
+      })
+      .catch((err) => toast.error(err.message));
   };
 
   return (
@@ -102,6 +159,8 @@ const Register = () => {
               className="w-full bg-gray-800 border border-gray-700 text-white px-3 py-2 rounded-lg mt-1 focus:outline-none focus:ring-2 focus:ring-pink-600"
             />
           </div>
+
+          {error && <p className="text-red-600 text-xs">{error}</p>}
 
           {/* Submit Button */}
           <button

@@ -3,16 +3,28 @@ import { Film, Lock } from "lucide-react";
 import useAuth from "../hooks/useAuth";
 import { Link, useLocation, useNavigate } from "react-router";
 import toast from "react-hot-toast";
+import useAxios from "../hooks/useAxios";
 
 const Login = () => {
-  const { setUser, setLoading, googleSignin } = useAuth();
+  const { setUser, setLoading, googleSignin, loginWithEmailPass } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
   const clickFrom = location.state?.from || "/";
+  const axios = useAxios();
 
   const handleGoogleSignin = () => {
     googleSignin()
       .then((result) => {
+        const newUser = {
+          name: result.user.displayName,
+          email: result.user.email,
+          image: result.user.photoURL,
+        };
+
+        axios.post("/users", newUser).then((data) => {
+          console.log(data.data);
+        });
+
         setLoading(false);
         setUser(result.user);
         toast.success("Login Successful.");
@@ -26,6 +38,16 @@ const Login = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    loginWithEmailPass(email, password).then((result) => {
+      setUser(result.user);
+      navigate(clickFrom);
+      toast.success("Login Successful.");
+    })
+    .catch(err => toast.error(err.message))
   };
 
   return (

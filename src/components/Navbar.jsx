@@ -128,7 +128,7 @@ const Navbar = () => {
                     alt="User"
                     referrerPolicy="no-referrer"
                     src={
-                      user.photoURL ||
+                      user?.photoURL ||
                       "https://static.vecteezy.com/system/resources/thumbnails/002/318/271/small/user-profile-icon-free-vector.jpg"
                     }
                   />

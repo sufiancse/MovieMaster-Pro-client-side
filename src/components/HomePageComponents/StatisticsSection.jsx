@@ -6,43 +6,25 @@ export default function StatisticsSection() {
   const axios = useAxios();
   const [stats, setStats] = useState({ totalMovies: 0, totalUsers: 0 });
 
-  // Simulate API call manually
-  // useEffect(() => {
-  //   axios.get("/movies").then((data) => {
-  //     setMovies(data.data);
-  //   });
-
-  //   const fetchData = () => {
-  //     const totalMoviesAndUsers = {
-  //       totalMovies: movies.length,
-  //       totalUsers: 452,
-  //     };
-      
-  //     setTimeout(() => {
-  //       setStats(totalMoviesAndUsers);
-  //     }, 1000);
-  //   };
-
-  //   fetchData();
-  // }, [movies.length, axios]);
-
   useEffect(() => {
     const fetchingMoviesAndUsers = async () => {
-      try{
-        const movieData = await axios.get('/api/movies')
+      try {
+        const movieData = await axios.get("/api/movies");
+        const userData = await axios.get("/api/users");
 
-        const totalData ={
+        const totalData = {
           totalMovies: movieData.data.length,
-          totalUsers: 428
-        }
+          totalUsers: userData.data.length,
+        };
         setTimeout(() => {
-          setStats(totalData)
-        },[1000])
+          setStats(totalData);
+        }, [1000]);
+      } catch {
+        (err) => console.log(err);
       }
-      catch{err => console.log(err)}
-    }
-    fetchingMoviesAndUsers()
-  },[axios])
+    };
+    fetchingMoviesAndUsers();
+  }, [axios]);
 
   return (
     <section className="py-16">
