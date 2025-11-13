@@ -46,13 +46,17 @@ const router = createBrowserRouter([
       {
         path: "/movies/movie-details/:id",
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/api/movies/${params.id}`),
+          fetch(
+            `https://movei-master-pro-server.vercel.app/api/movies/${params.id}`
+          ),
         Component: MovieDetailsCard,
       },
       {
         path: "/movies/update-movie/:id",
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/api/movies/${params.id}`),
+          fetch(
+            `https://movei-master-pro-server.vercel.app/api/movies/${params.id}`
+          ),
         element: (
           <PrivateRoute>
             <UpdateMovie />,
@@ -79,7 +83,6 @@ const router = createBrowserRouter([
         path: "*",
         Component: Error,
       },
-      
     ],
   },
 ]);

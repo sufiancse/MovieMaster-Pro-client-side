@@ -1,6 +1,6 @@
 # MovieMaster Pro
 
-[Live Site](https://moviemasterpro.example.com)
+[Live Site](https://movie-master-pro.pages.dev)
 
 MovieMaster Pro is a modern web application for movie enthusiasts to explore, manage, and track movies.  
 
